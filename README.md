@@ -1,5 +1,5 @@
 # .dotfiles
-Catppuccin inspired i3 rice
+Catppuccin for life <3
 
 Too lazy to do md... just a 1st year IT student rice.
 
