@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+# Rofi extension for Dunst history
+
+NAME="$(basename "$0")"
+VERSION="0.0.1"
+ITEMS=
+
+
+ROFI_OPTIONS=()
+
+load_items() {
+  if ! ITEMS=$(dunstctl history 2>/dev/null); then
+    exit_error $? "Could not load items"
+  fi
+}
+
+exit_error() {
+  local code="$1"
+  local message="$2"
+
+  rofi -e "$message" ${ROFI_OPTIONS[@]}
+  exit "$code"
+}
+
+
+show_items() {
+  items=$(
+    echo "$ITEMS" \
+    | jq -r ".data | .[] | .[] | \"[\" + .appname.data + \"] \" + .summary.data + \" \" + .body.data" \
+    | rofi_menu
+  );
+  
+}
+
+rofi_menu() {
+  rofi -dmenu -p 'Name' \
+    -i -no-custom \
+    -mesg "$msg" \
+    "${ROFI_OPTIONS[@]}"
+}
+
+parse_cli_arguments() {
+  # Use GNU getopt to parse command line arguments
+  if ! ARGUMENTS=$(getopt -o c:C --long auto-lock:,clear:,no-clear,show-password,state-path:,help,version -- "$@"); then
+    exit_error 1 "Failed to parse command-line arguments"
+  fi
+  eval set -- "$ARGUMENTS"
+
+  while true; do
+    case "$1" in
+      --help )
+        cat <<-USAGE
+$NAME $VERSION
+Usage:
+  $NAME [options] -- [rofi options]
+Options:
+  --help
+      Show this help text and exit.
+  --version
+      Show version information and exit.
+  
+Examples:
+  # Default options work well
+  $NAME
+
+USAGE
+        shift
+        exit 0
+        ;;
+      --version )
+        echo "$NAME $VERSION"
+        shift
+        exit 0
+        ;;
+      -- )
+        shift
+        ROFI_OPTIONS=("$@")
+        break
+        ;;
+      * )
+        exit_error 1 "Unknown option $1"
+    esac
+  done
+}
+
+
+parse_cli_arguments "$@"
+load_items
+show_items

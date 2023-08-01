@@ -29,7 +29,7 @@ no=''
 # Rofi CMD
 rofi_cmd() {
 	rofi -dmenu \
-		-p "안녕히 가세요 ${USER}" \
+		-p "Goodbye bitch" \
 		-mesg "Uptime: $uptime" \
 		-theme ${dir}/${theme}.rasi
 }

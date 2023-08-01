@@ -88,7 +88,7 @@ local bufferline = require('bufferline')
             persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
             -- can also be a table containing 2 custom separators
             -- [focused and unfocused]. eg: { '|', '|' }
-            separator_style = "padded_slant",
+            separator_style = "slant",
             enforce_regular_tabs = false,
             always_show_bufferline = true,
             hover = {
