@@ -7,9 +7,9 @@ return {
             gitsigns = true,
             nvimtree = true,
             treesitter = true,
-            notify = true,
+            notify = false,
             mason = true,
-            
+            alpha = true
         },
         native_lsp = {
             enabled = true,

@@ -1,11 +1,29 @@
 return {
-    {'williamboman/mason.nvim'},
-    {'williamboman/mason-lspconfig.nvim'},
-    {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
-    {'neovim/nvim-lspconfig'},
-    {'hrsh7th/cmp-nvim-lsp'},
-    {'hrsh7th/nvim-cmp'},
-    {'L3MON4D3/LuaSnip'},
+    "VonHeikemen/lsp-zero.nvim",
+    event = "BufReadPre", -- lazy-load lsp-zero.nvim itself
+    dependencies = {
+        {
+            "neovim/nvim-lspconfig", -- load nvim-lspconfig on BufReadPre (before loading Treesitter on BufReadPost)
+            event = "BufReadPre",
+        },
+        {
+            "williamboman/mason.nvim",
+            dependencies = {
+                { "williamboman/mason-lspconfig.nvim" },
+            },
+        },
+        {
+            "hrsh7th/nvim-cmp",
+            event = "InsertEnter", -- load nvim-cmp on InsertEnter; this is ignored(?), as nvim-cmp is loaded with lsp-zero.nvim
+            dependencies = {
+                { "hrsh7th/cmp-nvim-lsp" },
+                { "L3MON4D3/LuaSnip" },
+                { "saadparwaiz1/cmp_luasnip" },
+                { "rafamadriz/friendly-snippets" },
+            },
+        },
+    },
+
     config = function ()
         local lsp_zero = require('lsp-zero')
 
@@ -26,7 +44,7 @@ return {
 
         require('mason').setup({})
         require('mason-lspconfig').setup({
-            ensure_installed = {'tsserver', 'rust_analyzer'},
+            ensure_installed = {'clangd'},
             handlers = {
                 lsp_zero.default_setup,
                 lua_ls = function()
