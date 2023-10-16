@@ -1,0 +1,78 @@
+{
+	"layer": "top",
+	"modules-left": ["custom/launcher", "clock", "network"],
+	"modules-center": ["hyprland/workspaces"],
+	"modules-right": ["pulseaudio", "cpu", "memory", "battery", "custom/power"],
+	
+	"pulseaudio": {
+		"tooltip": false,
+		"scroll-step": 5,
+		"format": "{icon} {volume}%",
+		"format-muted": "{icon} {volume}%",
+		"on-click":"pactl set-sink-mute @DEFAULT_SINK@ toggle",
+		"format-icons": {
+			"default": ["", "", ""]
+		}
+	},
+
+    "hyprland/workspaces": {
+        "active-only": false,
+        "all-output": true,
+        "on-click": true,
+        "format": "{icon}",
+        "format-icons": {
+            "urgent": "󰵚 ",
+            "active": "󰝥 ",
+            "default": " ",
+        },
+        "persistent_workspaces": {
+            "*": 5
+        },
+    },
+
+	"network": {
+		"tooltip": false,
+		"format-wifi": "  {essid}",
+		"format-ethernet": "󰈀 "
+	},
+
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 20
+        },
+        "format": "{icon}  {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{time} {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+
+    "clock": {
+        "format": "{: %I:%M %p   %d/%m/%Y}"
+    },
+
+    "cpu": {
+        "interval": 15,
+        "format": "󰍛 {}%",
+        "max-length": 10
+    },
+
+    "memory": {
+        "interval": 30,
+        "format": " {}%",
+        "max-length": 10
+    },
+
+    "custom/launcher":{
+        "format": " ",
+        "on-click": "rofi -show drun",
+        "on-click-right": "killall rofi",
+    },
+
+    "custom/power":{
+        "format": " ",
+        "on-click": "bash ~/.config/rofi/leave.sh",
+    },
+}
