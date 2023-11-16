@@ -17,7 +17,6 @@ let
     p.jq
     p.json5
     p.json
-    p.lua
     p.make
     p.markdown
     p.nix

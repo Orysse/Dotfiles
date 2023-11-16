@@ -113,7 +113,7 @@
 
         label-charging = "%percentage%%";
         label-discharging = "%percentage%%";
-        label-full = "%{F\${#${base08}}} %{F-}100%";
+        label-full = "%{F#${base08}} %{F-}100%";
 
         ramp-capacity-0 = " ";
         ramp-capacity-1 = " ";
@@ -272,9 +272,9 @@
 
       "module/weather" = {
           type = "custom/script";
-          exec = "bash ~/.config/polybar/polybar-scripts/weather-plugin.sh";
+          exec = "bash ~/.config/polybar/polybar-scripts/weather-plugin.sh || nope";
           tail = false;
-          interval = 960;
+          interval = 60;
           format-background = "#${base00}";
       };
 
@@ -300,5 +300,6 @@
   home.file = {
       ".config/polybar/launch.sh".source = ./polybar/launch.sh;
       ".config/polybar/polybar-scripts".source = ./polybar/polybar-scripts;
+      ".owm-key".text = "b98be36035a0d5af10e6a3c797de14f2";
   };
 }

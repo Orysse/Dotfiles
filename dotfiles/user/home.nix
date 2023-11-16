@@ -16,7 +16,6 @@
   imports = [
     inputs.nix-colors.homeManagerModules.default
     ./wm/bspwm/bspwm.nix
-    # ./wm/picom/picom.nix
     ./apps/shell/zsh/zsh.nix
     ./apps/notify/dunst.nix
     ./apps/terminal/alacritty/alacritty.nix
@@ -49,6 +48,7 @@
     feh
     firefox
     lsd
+    neofetch
     pavucontrol
     polybar
     rofi
@@ -64,12 +64,6 @@
     # (callPackage ./packages/discord-screenaudio.nix {})
 
   ];
-
-  home.file = {
-    # ".config/nvim".source = ./apps/editor/nvim;
-    # ".config/polybar".source = ./wm/bspwm/polybar;
-    # ".config/alacritty".source = ./apps/terminal/alacritty;
-  };
 
   home.sessionVariables = {
     EDITOR = "nvim";
